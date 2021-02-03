@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,11 +34,12 @@ public class PersistentTransactionDAO implements TransactionDAO {
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         SimpleDateFormat dateFormat = new SimpleDateFormat( "dd/MM/yyyy" );
+        DecimalFormat decimalFormat=new DecimalFormat("##.00");
 
         cv.put(DATE_COLUMN, dateFormat.format(date));
         cv.put(ACCOUNT_NO_COLUMN, accountNo);
         cv.put(EXPENSE_TYPE_COLUMN, expenseType.toString());
-        cv.put(AMOUNT_COLUMN, amount);
+        cv.put(AMOUNT_COLUMN, decimalFormat.format(amount));
 
         db.insert(TRANSACTION_TABLE, null, cv);
     }

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class PersistentAccountDAO implements AccountDAO {
     @Override
     public List<Account> getAccountsList() {
         List<Account> accountsList= new ArrayList<>();
-        String queryString = "SELECT "+ ACCOUNT_NO_COLUMN +" FROM " + ACCOUNT_TABLE;
+        String queryString = "SELECT * FROM " + ACCOUNT_TABLE;
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         Cursor result = db.rawQuery(queryString, null);
         if(result.moveToFirst()) {
@@ -98,11 +99,12 @@ public class PersistentAccountDAO implements AccountDAO {
     public void addAccount(Account account) {
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        DecimalFormat decimalFormat=new DecimalFormat("##.00");
 
         cv.put(ACCOUNT_NO_COLUMN, account.getAccountNo());
         cv.put(BANK_NAME_COLUMN, account.getBankName());
         cv.put(NAME_COLUMN, account.getAccountHolderName());
-        cv.put(BALANCE, account.getBalance());
+        cv.put(BALANCE, decimalFormat.format(account.getBalance()));
 
         db.insert(ACCOUNT_TABLE, null, cv);
 
@@ -146,7 +148,8 @@ public class PersistentAccountDAO implements AccountDAO {
                     balance = balance + amount;
                     break;
             }
-            values.put(BALANCE, balance);
+            DecimalFormat decimalFormat=new DecimalFormat("##.00");
+            values.put(BALANCE, decimalFormat.format(balance));
             db.update(ACCOUNT_TABLE, values, ACCOUNT_NO_COLUMN + " = ?", new String[]{accountNo});
 
             db.close();

@@ -34,4 +34,7 @@
     <string name="label_manage">Manage</string>
     <string name="label_add_account">Add account</string>
     <string name="label_logs">Logs</string>
+    <string name="account_no_text">Account No</string>
+    <string name="bank_name_text">Bank</string>
+    <string name="balance_text">Balance</string>
 </resources>

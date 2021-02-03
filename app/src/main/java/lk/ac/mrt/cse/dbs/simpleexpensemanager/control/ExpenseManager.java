@@ -80,6 +80,15 @@ public abstract class ExpenseManager implements Serializable {
     }
 
     /***
+     * Get a list of accounts.
+     *
+     * @return
+     */
+    public List<Account> getAccountsList() {
+        return accountsHolder.getAccountsList();
+    }
+
+    /***
      * Add account to the accounts dao.
      *
      * @param accountNo
