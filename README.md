@@ -1,5 +1,7 @@
 # SimpleExpenseManager
 This is an android based basic expense manager application which will be used as a lab assignment for CS3042 - Database Systems course module.
+## My GitHub Url
+https://github.com/YathuNK/SimpleExpenseManager
 
 ## Description
 During this assignment we will be self-learning how to use an embedded database in an android application. This project is an android application that act as a skeleton. Following is the structure of the application.
