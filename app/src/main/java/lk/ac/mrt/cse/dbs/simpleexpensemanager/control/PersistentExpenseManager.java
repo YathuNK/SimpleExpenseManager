@@ -8,8 +8,10 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.PersistentAccountDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.PersistentTransactionDAO;
 
 public class PersistentExpenseManager extends ExpenseManager {
-    private Context context;
-    private String database="180722N";
+    private final Context context;
+    private static final String DATABASE="180722N";
+    private static final int DATABASE_VERSION = 1;
+
     public PersistentExpenseManager(Context context) {
         this.context=context;
         setup();
@@ -17,14 +19,16 @@ public class PersistentExpenseManager extends ExpenseManager {
 
     @Override
     public void setup() {
-        /*** Begin generating persistent manager implementation ***/
+        // Begin generating persistent manager implementation
 
-        TransactionDAO persistentTransactionDAO = new PersistentTransactionDAO(this.context,database,null,1);
+        DatabaseHelper databaseHelper =new DatabaseHelper(this.context,DATABASE,null,DATABASE_VERSION);
+
+        TransactionDAO persistentTransactionDAO = new PersistentTransactionDAO(databaseHelper);
         setTransactionsDAO(persistentTransactionDAO);
 
-        AccountDAO persistentAccountDAO = new PersistentAccountDAO(this.context,"180722NN",null,1);
+        AccountDAO persistentAccountDAO = new PersistentAccountDAO(databaseHelper);
         setAccountsDAO(persistentAccountDAO);
 
-        /*** End ***/
+        // End
     }
 }
